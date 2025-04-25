@@ -113,9 +113,12 @@
 
             <!-- Compiler plugin: enable MapStruct annotation processing -->
             <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${compiler-plugin.version}</version>
                 <configuration>
+                    <!-- for Java 21 -->
+                    <release>${maven.compiler.release}</release>
                     <parameters>true</parameters>
                     <annotationProcessorPaths>
                         <path>
@@ -126,6 +129,7 @@
                     </annotationProcessorPaths>
                 </configuration>
             </plugin>
+
 
             <!-- Surefire (unit tests) -->
             <plugin>
