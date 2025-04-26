@@ -18,8 +18,8 @@
         <quarkus.platform.version>3.21.4</quarkus.platform.version>
         <skipITs>true</skipITs>
         <surefire-plugin.version>3.5.2</surefire-plugin.version>
-        <!-- MapStruct version -->
         <mapstruct.version>1.5.5.Final</mapstruct.version>
+        <lombok.version>1.18.32</lombok.version>
     </properties>
 
     <dependencyManagement>
@@ -89,6 +89,14 @@
             <version>${mapstruct.version}</version>
             <scope>provided</scope>
         </dependency>
+
+        <!-- Lombok -->
+        <dependency>
+            <groupId>org.projectlombok</groupId>
+            <artifactId>lombok</artifactId>
+            <version>${lombok.version}</version>
+            <scope>provided</scope>
+        </dependency>
     </dependencies>
 
     <build>
@@ -111,23 +119,40 @@
                 </executions>
             </plugin>
 
-            <!-- Compiler plugin: enable MapStruct annotation processing -->
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-compiler-plugin</artifactId>
                 <version>${compiler-plugin.version}</version>
                 <configuration>
-                    <!-- for Java 21 -->
                     <release>${maven.compiler.release}</release>
                     <parameters>true</parameters>
+                    <fork>true</fork>
                     <annotationProcessorPaths>
+                        <!-- MapStruct Processor -->
                         <path>
                             <groupId>org.mapstruct</groupId>
                             <artifactId>mapstruct-processor</artifactId>
                             <version>${mapstruct.version}</version>
                         </path>
+
+                        <!-- Lombok Processor -->
+                        <path>
+                            <groupId>org.projectlombok</groupId>
+                            <artifactId>lombok</artifactId>
+                            <version>${lombok.version}</version>
+                        </path>
                     </annotationProcessorPaths>
                 </configuration>
+                <executions>
+                    <execution>
+                        <id>default-compile</id>
+                        <goals><goal>compile</goal></goals>
+                    </execution>
+                    <execution>
+                        <id>default-test-compile</id>
+                        <goals><goal>testCompile</goal></goals>
+                    </execution>
+                </executions>
             </plugin>
 
 
