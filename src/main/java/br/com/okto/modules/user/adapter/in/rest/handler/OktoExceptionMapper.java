@@ -1,4 +1,4 @@
-package br.com.okto.modules.user.adapter.in.rest.exception;
+package br.com.okto.modules.user.adapter.in.rest.handler;
 
 import br.com.okto.shared.dto.ErrorResponse;
 import br.com.okto.shared.exception.OktoException;
