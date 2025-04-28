@@ -3,19 +3,19 @@ package br.com.okto.modules.user.application.usecase;
 import br.com.okto.modules.user.adapter.out.persistence.entity.UserEntity;
 import br.com.okto.modules.user.application.dto.user.CreateUserRequest;
 import br.com.okto.modules.user.application.port.in.user.CreateUserUseCase;
-import br.com.okto.modules.user.application.port.in.user.FindUserUseCase;
 import br.com.okto.modules.user.application.port.out.UserRepository;
 import br.com.okto.modules.user.domain.enums.UserRole;
 import br.com.okto.shared.exception.ConflictException;
 import br.com.okto.shared.mapper.UserMapper;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 
 import java.util.Date;
 import java.util.UUID;
 
 @ApplicationScoped
+@Slf4j
 public class CreateUserUseCaseImpl implements CreateUserUseCase {
 
     private final UserRepository repository;
@@ -28,6 +28,10 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
 
     @Override
     public UUID execute(CreateUserRequest userData) {
+        var existingUser = repository.findUserByEmail(userData.email());
+        if (existingUser != null) {
+            throw new ConflictException("user", userData.email());
+        }
 
         UserEntity userToBeCreated = UserEntity.builder()
                 .name(userData.name())
