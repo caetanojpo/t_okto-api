@@ -1,15 +1,19 @@
 package br.com.okto.shared.exception;
 
-public class EntityNotFoundException extends RuntimeException {
+import jakarta.ws.rs.core.Response;
+
+public class EntityNotFoundException extends OktoException {
 
     private static final String MSG_TEMPLATE =
             "Entity [%s] not found: %s";
+    private static final String CODE = "NOT_FOUND";
+    private static final Response.Status STATUS = Response.Status.NOT_FOUND;
 
     public EntityNotFoundException(String entity) {
-        super(String.format(MSG_TEMPLATE, entity.toUpperCase(), "no additional details"));
+        super(CODE, STATUS, String.format(MSG_TEMPLATE, entity.toUpperCase(), "no additional details"));
     }
 
     public EntityNotFoundException(String entity, Throwable cause) {
-        super(String.format(MSG_TEMPLATE, entity.toUpperCase(), cause.getMessage()), cause);
+        super(CODE, STATUS, String.format(MSG_TEMPLATE, entity.toUpperCase(), cause.getMessage()), cause);
     }
 }
