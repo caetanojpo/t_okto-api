@@ -4,7 +4,6 @@ import br.com.okto.modules.user.adapter.out.persistence.entity.UserEntity;
 import br.com.okto.modules.user.application.port.out.UserRepository;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import jakarta.enterprise.context.ApplicationScoped;
-import br.com.okto.shared.exception.EntityNotFoundException;
 import br.com.okto.shared.exception.DatabaseException;
 
 import java.util.List;
@@ -26,13 +25,7 @@ public class UserRepositoryImpl
     @Override
     public UserEntity findUserById(UUID userId) {
         try {
-            UserEntity found = findById(userId);
-            if (found == null) {
-                throw new EntityNotFoundException("user");
-            }
-            return found;
-        } catch (EntityNotFoundException e) {
-            throw e;
+            return findById(userId);
         } catch (Exception error) {
             throw new DatabaseException("findUserById", "USER", error);
         }
@@ -41,13 +34,7 @@ public class UserRepositoryImpl
     @Override
     public UserEntity findUserByEmail(String userEmail) {
         try {
-            UserEntity found = find("email", userEmail).firstResult();
-            if (found == null) {
-                throw new EntityNotFoundException("user");
-            }
-            return found;
-        } catch (EntityNotFoundException e) {
-            throw e;
+            return find("email", userEmail).firstResult();
         } catch (Exception error) {
             throw new DatabaseException("findUserByEmail", "USER", error);
         }
@@ -56,13 +43,7 @@ public class UserRepositoryImpl
     @Override
     public List<UserEntity> findAllUsers() {
         try {
-            List<UserEntity> list = listAll();
-            if (list.isEmpty()) {
-                throw new EntityNotFoundException("user");
-            }
-            return list;
-        } catch (EntityNotFoundException e) {
-            throw e;
+            return listAll();
         } catch (Exception error) {
             throw new DatabaseException("findAllUsers", "USER", error);
         }

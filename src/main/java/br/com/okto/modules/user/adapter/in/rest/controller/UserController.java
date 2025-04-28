@@ -1,4 +1,4 @@
-package br.com.okto.modules.user.adapter.in.rest;
+package br.com.okto.modules.user.adapter.in.rest.controller;
 
 import br.com.okto.modules.user.application.dto.user.CreateUserRequest;
 import br.com.okto.modules.user.application.port.in.user.CreateUserUseCase;

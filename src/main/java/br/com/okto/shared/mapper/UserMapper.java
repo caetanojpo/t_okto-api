@@ -1,7 +1,6 @@
 package br.com.okto.shared.mapper;
 
 import br.com.okto.modules.user.adapter.out.persistence.entity.UserEntity;
-import br.com.okto.modules.user.application.dto.user.CreateUserRequest;
 import br.com.okto.modules.user.application.dto.user.UserResponse;
 import br.com.okto.modules.user.domain.model.User;
 import org.mapstruct.Mapper;
@@ -15,5 +14,5 @@ public interface UserMapper {
 
     UserEntity toEntity(User domain);
 
-    UserResponse toResponse(User domain);
+    UserResponse toResponse(UserEntity domain);
 }
