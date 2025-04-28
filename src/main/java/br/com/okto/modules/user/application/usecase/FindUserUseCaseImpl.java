@@ -27,7 +27,7 @@ public class FindUserUseCaseImpl implements FindUserUseCase {
         UserEntity foundUser = repository.findUserById(id);
 
         if (foundUser == null) {
-            throw new EntityNotFoundException("user");
+            throw new EntityNotFoundException("USER", id.toString(), "id");
         }
 
         return mapper.toResponse(foundUser);
@@ -38,7 +38,7 @@ public class FindUserUseCaseImpl implements FindUserUseCase {
         UserEntity foundUser = repository.findUserByEmail(email);
 
         if (foundUser == null) {
-            throw new EntityNotFoundException("user");
+            throw new EntityNotFoundException("USER", email, "email");
         }
 
         return mapper.toResponse(foundUser);
