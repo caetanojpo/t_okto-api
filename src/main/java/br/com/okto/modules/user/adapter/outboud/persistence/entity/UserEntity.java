@@ -1,6 +1,6 @@
-package br.com.okto.adapter.outboud.persistence.entity;
+package br.com.okto.modules.user.adapter.outboud.persistence.entity;
 
-import br.com.okto.domain.enums.UserRole;
+import br.com.okto.modules.user.domain.enums.UserRole;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;

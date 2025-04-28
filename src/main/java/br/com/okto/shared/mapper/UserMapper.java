@@ -1,7 +1,7 @@
 package br.com.okto.shared.mapper;
 
-import br.com.okto.adapter.outboud.persistence.entity.UserEntity;
-import br.com.okto.domain.model.User;
+import br.com.okto.modules.user.adapter.outboud.persistence.entity.UserEntity;
+import br.com.okto.modules.user.domain.model.User;
 import org.mapstruct.Mapper;
 import org.mapstruct.factory.Mappers;
 

@@ -1,6 +1,6 @@
-package br.com.okto.domain.model;
+package br.com.okto.modules.user.domain.model;
 
-import br.com.okto.domain.enums.UserRole;
+import br.com.okto.modules.user.domain.enums.UserRole;
 
 import java.util.Date;
 import java.util.Objects;

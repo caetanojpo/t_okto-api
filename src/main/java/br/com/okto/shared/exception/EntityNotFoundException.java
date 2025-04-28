@@ -1,4 +1,4 @@
-package br.com.okto.domain.exceptions;
+package br.com.okto.shared.exception;
 
 public class EntityNotFoundException extends RuntimeException {
 

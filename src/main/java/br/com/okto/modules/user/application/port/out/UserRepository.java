@@ -1,6 +1,6 @@
-package br.com.okto.application.port.out;
+package br.com.okto.modules.user.application.port.out;
 
-import br.com.okto.domain.model.User;
+import br.com.okto.modules.user.domain.model.User;
 
 import java.util.List;
 import java.util.UUID;

@@ -1,10 +1,10 @@
-package br.com.okto.adapter.outboud.persistence.repository;
+package br.com.okto.modules.user.adapter.outboud.persistence.repository;
 
-import br.com.okto.adapter.outboud.persistence.entity.UserEntity;
-import br.com.okto.domain.exceptions.EntityNotFoundException;
-import br.com.okto.domain.exceptions.UserDatabaseException;
-import br.com.okto.domain.model.User;
-import br.com.okto.application.port.out.UserRepository;
+import br.com.okto.modules.user.adapter.outboud.persistence.entity.UserEntity;
+import br.com.okto.modules.user.application.port.out.UserRepository;
+import br.com.okto.shared.exception.EntityNotFoundException;
+import br.com.okto.shared.exception.DatabaseException;
+import br.com.okto.modules.user.domain.model.User;
 import br.com.okto.shared.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 
@@ -23,7 +23,7 @@ public class UserRepositoryImpl implements UserRepository {
             var mappedUser = mapper.toEntity(userToBeSaved);
             panacheRepository.persist(mappedUser);
         } catch (Exception error) {
-            throw new UserDatabaseException("saveUser", error);
+            throw new DatabaseException("saveUser", error);
         }
     }
 
@@ -40,7 +40,7 @@ public class UserRepositoryImpl implements UserRepository {
         } catch (EntityNotFoundException entityNotFoundError) {
             throw entityNotFoundError;
         } catch (Exception error) {
-            throw new UserDatabaseException("findUserById", error);
+            throw new DatabaseException("findUserById", error);
         }
     }
 
@@ -59,7 +59,7 @@ public class UserRepositoryImpl implements UserRepository {
         } catch (EntityNotFoundException entityNotFoundError) {
             throw entityNotFoundError;
         } catch (Exception error) {
-            throw new UserDatabaseException("findUserById", error);
+            throw new DatabaseException("findUserById", error);
         }
     }
 
@@ -76,7 +76,7 @@ public class UserRepositoryImpl implements UserRepository {
         } catch (EntityNotFoundException entityNotFoundError) {
             throw entityNotFoundError;
         } catch (Exception error) {
-            throw new UserDatabaseException("findUserById", error);
+            throw new DatabaseException("findUserById", error);
         }
     }
 
@@ -86,7 +86,7 @@ public class UserRepositoryImpl implements UserRepository {
             UserEntity mappedUser = mapper.toEntity(userToBeUpdated);
             panacheRepository.persist(mappedUser);
         } catch (Exception error) {
-            throw new UserDatabaseException("updateUser", error);
+            throw new DatabaseException("updateUser", error);
         }
     }
 
@@ -97,7 +97,7 @@ public class UserRepositoryImpl implements UserRepository {
             entity.setActive(false);
             panacheRepository.persist(entity);
         } catch (Exception error) {
-            throw new UserDatabaseException("deleteUser", error);
+            throw new DatabaseException("deleteUser", error);
         }
     }
 }
