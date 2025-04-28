@@ -18,7 +18,7 @@ public class UserRepositoryImpl
         try {
             persist(userToBeSaved);
         } catch (Exception error) {
-            throw new DatabaseException("saveUser", "USER", error);
+            throw new DatabaseException(UserRepository.class.getSimpleName(), "saveUser", error);
         }
     }
 
@@ -27,7 +27,7 @@ public class UserRepositoryImpl
         try {
             return findById(userId);
         } catch (Exception error) {
-            throw new DatabaseException("findUserById", "USER", error);
+            throw new DatabaseException(UserRepository.class.getSimpleName(), "findUserById",  error);
         }
     }
 
@@ -36,7 +36,7 @@ public class UserRepositoryImpl
         try {
             return find("email", userEmail).firstResult();
         } catch (Exception error) {
-            throw new DatabaseException("findUserByEmail", "USER", error);
+            throw new DatabaseException(UserRepository.class.getSimpleName(), "findUserByEmail", error);
         }
     }
 
@@ -45,7 +45,7 @@ public class UserRepositoryImpl
         try {
             return listAll();
         } catch (Exception error) {
-            throw new DatabaseException("findAllUsers", "USER", error);
+            throw new DatabaseException(UserRepository.class.getSimpleName(), "findAllUsers", error);
         }
     }
 
@@ -54,7 +54,7 @@ public class UserRepositoryImpl
         try {
             persist(userToBeUpdated);
         } catch (Exception error) {
-            throw new DatabaseException("updateUser", "USER", error);
+            throw new DatabaseException(UserRepository.class.getSimpleName(), "updateUser", error);
         }
     }
 
@@ -65,7 +65,7 @@ public class UserRepositoryImpl
             entity.setActive(false);
             persist(entity);
         } catch (Exception error) {
-            throw new DatabaseException("deleteUser", "USER", error);
+            throw new DatabaseException(UserRepository.class.getSimpleName(), "deleteUser", error);
         }
     }
 }
