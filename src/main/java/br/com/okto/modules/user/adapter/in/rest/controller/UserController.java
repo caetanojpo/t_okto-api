@@ -1,14 +1,20 @@
 package br.com.okto.modules.user.adapter.in.rest.controller;
 
 import br.com.okto.modules.user.application.dto.user.CreateUserRequest;
+import br.com.okto.modules.user.application.dto.user.UserResponse;
 import br.com.okto.modules.user.application.port.in.user.CreateUserUseCase;
+import br.com.okto.modules.user.application.port.in.user.FindUserUseCase;
+import br.com.okto.shared.dto.ApiResponse;
+import br.com.okto.shared.dto.PageInfo;
 import br.com.okto.shared.mapper.UserMapper;
 import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.GET;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
+import jakarta.ws.rs.PathParam;
 import jakarta.ws.rs.Produces;
 import jakarta.ws.rs.core.MediaType;
 import jakarta.ws.rs.core.Response;
@@ -20,11 +26,14 @@ import java.util.UUID;
 @Consumes(MediaType.APPLICATION_JSON)
 public class UserController {
     private final CreateUserUseCase create;
+    private final FindUserUseCase find;
+
     private static final UserMapper mapper = UserMapper.INSTANCE;
 
     @Inject
-    public UserController(CreateUserUseCase create) {
+    public UserController(CreateUserUseCase create, FindUserUseCase find) {
         this.create = create;
+        this.find = find;
     }
 
     @POST
@@ -36,4 +45,36 @@ public class UserController {
                 .build();
     }
 
+    @GET
+    public Response findAllUsers(){
+        var users = find.executeAll();
+        PageInfo<UserResponse> meta = new PageInfo<>(
+                users,
+                users.size(),
+                0,
+                1,
+               1
+        );
+        return Response.status(Response.Status.OK)
+                .entity(meta)
+                .build();
+    }
+
+    @GET
+    @Path("/{id}")
+    public Response findById(@PathParam("id") UUID id){
+        var user = find.executeById(id);
+        return Response.status(Response.Status.OK)
+                .entity(ApiResponse.success(user))
+                .build();
+    }
+
+    @GET
+    @Path("/email/{email}")
+    public Response findById(@PathParam("email") String email){
+        var user = find.executeByEmail(email);
+        return Response.status(Response.Status.OK)
+                .entity(ApiResponse.success(user))
+                .build();
+    }
 }
