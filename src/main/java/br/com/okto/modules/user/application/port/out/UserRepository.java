@@ -1,15 +1,15 @@
 package br.com.okto.modules.user.application.port.out;
 
-import br.com.okto.modules.user.domain.model.User;
+import br.com.okto.modules.user.adapter.out.persistence.entity.UserEntity;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface UserRepository {
-    void saveUser(User userToBeSaved);
-    User findUserById(UUID userId);
-    User findUserByEmail(String userEmail);
-    List<User> findAllUsers();
-    void updateUser(User userToBeUpdated);
+    void saveUser(UserEntity userToBeSaved);
+    UserEntity findUserById(UUID userId);
+    UserEntity findUserByEmail(String userEmail);
+    List<UserEntity> findAllUsers();
+    void updateUser(UserEntity userToBeUpdated);
     void deleteUser(UUID userId);
 }
