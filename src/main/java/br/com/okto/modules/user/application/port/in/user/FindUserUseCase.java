@@ -1,12 +1,12 @@
 package br.com.okto.modules.user.application.port.in.user;
 
-import br.com.okto.modules.user.domain.model.User;
+import br.com.okto.modules.user.application.dto.user.UserResponse;
 
 import java.util.List;
 import java.util.UUID;
 
 public interface FindUserUseCase {
-    User executeById(UUID id);
-    User executeByEmail(String email);
-    List<User> executeAll();
+    UserResponse executeById(UUID id);
+    UserResponse executeByEmail(String email);
+    List<UserResponse> executeAll();
 }
