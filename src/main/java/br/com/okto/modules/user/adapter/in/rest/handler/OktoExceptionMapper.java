@@ -1,6 +1,7 @@
 package br.com.okto.modules.user.adapter.in.rest.handler;
 
-import br.com.okto.shared.dto.ErrorResponse;
+import br.com.okto.shared.dto.ApiResponse;
+import br.com.okto.shared.dto.ErrorInfo;
 import br.com.okto.shared.exception.OktoException;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.ws.rs.core.MediaType;
@@ -11,6 +12,8 @@ import lombok.extern.slf4j.Slf4j;
 
 import java.time.Instant;
 
+import static java.util.Collections.singletonList;
+
 @Provider
 @ApplicationScoped
 @Slf4j
@@ -20,7 +23,15 @@ public class OktoExceptionMapper implements ExceptionMapper<OktoException> {
     public Response toResponse(OktoException exception) {
         logError(exception);
 
-        ErrorResponse payload = new ErrorResponse(exception.getCode(), exception.getMessage(), Instant.now());
+        ErrorInfo errorInfo = new ErrorInfo(
+                exception.getCode(),
+                exception.getMessage(),
+                exception.getField()
+        );
+
+        ApiResponse<Void> payload = ApiResponse.error(
+                singletonList(errorInfo)
+        );
 
         return Response.status(exception.getStatus())
                 .type(MediaType.APPLICATION_JSON)
