@@ -1,10 +1,8 @@
 package br.com.okto.shared.dto;
 
-import java.time.Instant;
-
-public record ErrorResponse(
+public record ErrorInfo(
         String code,
         String message,
-        Instant timestamp
+        String field
 ) {
 }
