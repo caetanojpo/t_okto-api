@@ -1,4 +1,4 @@
-package br.com.okto.modules.user.adapter.outboud.persistence.entity;
+package br.com.okto.modules.user.adapter.out.persistence.entity;
 
 import br.com.okto.modules.user.domain.enums.UserRole;
 import jakarta.persistence.Column;
