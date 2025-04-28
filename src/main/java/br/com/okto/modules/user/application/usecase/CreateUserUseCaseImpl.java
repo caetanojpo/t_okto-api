@@ -30,7 +30,7 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
     public UUID execute(CreateUserRequest userData) {
         var existingUser = repository.findUserByEmail(userData.email());
         if (existingUser != null) {
-            throw new ConflictException("user", userData.email());
+            throw new ConflictException("USER", userData.email(), "email");
         }
 
         UserEntity userToBeCreated = UserEntity.builder()
