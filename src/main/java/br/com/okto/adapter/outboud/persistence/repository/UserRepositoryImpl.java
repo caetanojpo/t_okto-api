@@ -4,7 +4,7 @@ import br.com.okto.adapter.outboud.persistence.entity.UserEntity;
 import br.com.okto.domain.exceptions.EntityNotFoundException;
 import br.com.okto.domain.exceptions.UserDatabaseException;
 import br.com.okto.domain.model.User;
-import br.com.okto.domain.repository.UserRepository;
+import br.com.okto.application.port.out.UserRepository;
 import br.com.okto.shared.mapper.UserMapper;
 import lombok.RequiredArgsConstructor;
 

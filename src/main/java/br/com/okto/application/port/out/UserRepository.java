@@ -1,4 +1,4 @@
-package br.com.okto.domain.repository;
+package br.com.okto.application.port.out;
 
 import br.com.okto.domain.model.User;
 
