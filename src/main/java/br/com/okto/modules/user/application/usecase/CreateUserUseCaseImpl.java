@@ -2,12 +2,12 @@ package br.com.okto.modules.user.application.usecase;
 
 import br.com.okto.modules.user.adapter.out.persistence.entity.UserEntity;
 import br.com.okto.modules.user.application.dto.user.CreateUserRequest;
-import br.com.okto.modules.user.application.port.in.user.CreateUserUseCase;
-import br.com.okto.modules.user.application.port.out.UserRepository;
+import br.com.okto.modules.user.application.port.in.usecase.CreateUserUseCase;
+import br.com.okto.modules.user.application.port.out.repository.UserRepository;
+import br.com.okto.modules.user.application.port.out.security.EncryptPassword;
 import br.com.okto.modules.user.domain.enums.UserRole;
 import br.com.okto.shared.exception.ConflictException;
 import br.com.okto.shared.mapper.UserMapper;
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 
@@ -18,10 +18,12 @@ import java.util.UUID;
 public class CreateUserUseCaseImpl implements CreateUserUseCase {
 
     private final UserRepository repository;
+    private final EncryptPassword encryptService;
 
     @Inject
-    public CreateUserUseCaseImpl(UserRepository repository, UserMapper mapper) {
+    public CreateUserUseCaseImpl(UserRepository repository, UserMapper mapper, EncryptPassword encryptService) {
         this.repository = repository;
+        this.encryptService = encryptService;
     }
 
     @Override
@@ -31,10 +33,12 @@ public class CreateUserUseCaseImpl implements CreateUserUseCase {
             throw new ConflictException("USER", userData.email(), "email");
         }
 
+        String hashedPassword = encryptService.hash(userData.password());
+
         UserEntity userToBeCreated = UserEntity.builder()
                 .name(userData.name())
                 .email(userData.email())
-                .hashedPassword(userData.password())
+                .hashedPassword(hashedPassword)
                 .isActive(true)
                 .role(UserRole.USER)
                 .createdAt(new Date())

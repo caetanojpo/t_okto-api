@@ -3,13 +3,11 @@ package br.com.okto.modules.user.application.usecase;
 import br.com.okto.modules.user.application.dto.user.UpdateUserBasicInfoRequest;
 import br.com.okto.modules.user.application.dto.user.UpdateUserPasswordRequest;
 import br.com.okto.modules.user.application.dto.user.UpdateUserRoleRequest;
-import br.com.okto.modules.user.application.port.in.user.UpdateUserUseCase;
-import br.com.okto.modules.user.application.port.out.UserRepository;
+import br.com.okto.modules.user.application.port.in.usecase.UpdateUserUseCase;
+import br.com.okto.modules.user.application.port.out.repository.UserRepository;
+import br.com.okto.modules.user.application.port.out.security.EncryptPassword;
 import br.com.okto.modules.user.domain.enums.UserRole;
-import br.com.okto.modules.user.domain.model.User;
 import br.com.okto.shared.exception.EntityNotFoundException;
-import br.com.okto.shared.mapper.UserMapper;
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Singleton;
 
 import java.util.Date;
@@ -18,9 +16,11 @@ import java.util.UUID;
 @Singleton
 public class UpdateUserUseCaseImpl implements UpdateUserUseCase {
     private final UserRepository repository;
+    private final EncryptPassword encryptService;
 
-    public UpdateUserUseCaseImpl(UserRepository repository){
+    public UpdateUserUseCaseImpl(UserRepository repository, EncryptPassword encryptService){
         this.repository = repository;
+        this.encryptService = encryptService;
     }
 
     @Override
@@ -31,9 +31,9 @@ public class UpdateUserUseCaseImpl implements UpdateUserUseCase {
             throw new EntityNotFoundException("USER", userId.toString(), "id");
         }
 
-        String newUserPassword = userData.password();
+        String hashedPassword = encryptService.hash(userData.password());
 
-        existingUser.setHashedPassword(newUserPassword);
+        existingUser.setHashedPassword(hashedPassword);
         existingUser.setUpdatedAt(new Date());
 
         repository.updateUser(existingUser);
