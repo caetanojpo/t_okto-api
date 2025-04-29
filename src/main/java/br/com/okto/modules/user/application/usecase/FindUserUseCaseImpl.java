@@ -2,11 +2,10 @@ package br.com.okto.modules.user.application.usecase;
 
 import br.com.okto.modules.user.adapter.out.persistence.entity.UserEntity;
 import br.com.okto.modules.user.application.dto.user.UserResponse;
-import br.com.okto.modules.user.application.port.in.user.FindUserUseCase;
-import br.com.okto.modules.user.application.port.out.UserRepository;
+import br.com.okto.modules.user.application.port.in.usecase.FindUserUseCase;
+import br.com.okto.modules.user.application.port.out.repository.UserRepository;
 import br.com.okto.shared.exception.EntityNotFoundException;
 import br.com.okto.shared.mapper.UserMapper;
-import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;
 

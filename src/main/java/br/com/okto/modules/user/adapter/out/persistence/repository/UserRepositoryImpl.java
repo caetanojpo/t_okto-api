@@ -1,7 +1,7 @@
 package br.com.okto.modules.user.adapter.out.persistence.repository;
 
 import br.com.okto.modules.user.adapter.out.persistence.entity.UserEntity;
-import br.com.okto.modules.user.application.port.out.UserRepository;
+import br.com.okto.modules.user.application.port.out.repository.UserRepository;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import jakarta.enterprise.context.ApplicationScoped;
 import br.com.okto.shared.exception.DatabaseException;

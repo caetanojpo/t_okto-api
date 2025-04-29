@@ -1,4 +1,4 @@
-package br.com.okto.modules.user.application.port.in.user;
+package br.com.okto.modules.user.application.port.in.usecase;
 
 import br.com.okto.modules.user.application.dto.user.UpdateUserBasicInfoRequest;
 import br.com.okto.modules.user.application.dto.user.UpdateUserPasswordRequest;

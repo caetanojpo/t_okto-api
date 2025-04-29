@@ -1,4 +1,4 @@
-package br.com.okto.modules.user.application.port.in.user;
+package br.com.okto.modules.user.application.port.in.usecase;
 
 import java.util.UUID;
 

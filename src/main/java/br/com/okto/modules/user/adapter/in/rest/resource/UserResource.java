@@ -1,19 +1,17 @@
-package br.com.okto.modules.user.adapter.in.rest.controller;
+package br.com.okto.modules.user.adapter.in.rest.resource;
 
 import br.com.okto.modules.user.application.dto.user.CreateUserRequest;
 import br.com.okto.modules.user.application.dto.user.UpdateUserBasicInfoRequest;
 import br.com.okto.modules.user.application.dto.user.UpdateUserPasswordRequest;
 import br.com.okto.modules.user.application.dto.user.UpdateUserRoleRequest;
 import br.com.okto.modules.user.application.dto.user.UserResponse;
-import br.com.okto.modules.user.application.port.in.user.CreateUserUseCase;
-import br.com.okto.modules.user.application.port.in.user.DeleteUserUseCase;
-import br.com.okto.modules.user.application.port.in.user.FindUserUseCase;
-import br.com.okto.modules.user.application.port.in.user.UpdateUserUseCase;
+import br.com.okto.modules.user.application.port.in.usecase.CreateUserUseCase;
+import br.com.okto.modules.user.application.port.in.usecase.DeleteUserUseCase;
+import br.com.okto.modules.user.application.port.in.usecase.FindUserUseCase;
+import br.com.okto.modules.user.application.port.in.usecase.UpdateUserUseCase;
 import br.com.okto.shared.dto.ApiResponse;
 import br.com.okto.shared.dto.PageInfo;
-import br.com.okto.shared.mapper.UserMapper;
 import jakarta.inject.Inject;
-import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.DELETE;
@@ -31,14 +29,14 @@ import java.util.UUID;
 @Path("/api/v1/users")
 @Produces(MediaType.APPLICATION_JSON)
 @Consumes(MediaType.APPLICATION_JSON)
-public class UserController {
+public class UserResource {
     private final CreateUserUseCase create;
     private final FindUserUseCase find;
     private final UpdateUserUseCase update;
     private final DeleteUserUseCase delete;
 
     @Inject
-    public UserController(CreateUserUseCase create, FindUserUseCase find, UpdateUserUseCase update, DeleteUserUseCase delete) {
+    public UserResource(CreateUserUseCase create, FindUserUseCase find, UpdateUserUseCase update, DeleteUserUseCase delete) {
         this.create = create;
         this.find = find;
         this.update = update;

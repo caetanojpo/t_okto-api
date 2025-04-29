@@ -1,7 +1,7 @@
 package br.com.okto.modules.user.application.usecase;
 
-import br.com.okto.modules.user.application.port.in.user.DeleteUserUseCase;
-import br.com.okto.modules.user.application.port.out.UserRepository;
+import br.com.okto.modules.user.application.port.in.usecase.DeleteUserUseCase;
+import br.com.okto.modules.user.application.port.out.repository.UserRepository;
 import br.com.okto.shared.exception.EntityNotFoundException;
 import jakarta.inject.Inject;
 import jakarta.inject.Singleton;

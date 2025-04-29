@@ -1,4 +1,4 @@
-package br.com.okto.modules.user.application.port.out;
+package br.com.okto.modules.user.application.port.out.repository;
 
 import br.com.okto.modules.user.adapter.out.persistence.entity.UserEntity;
 
