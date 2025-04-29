@@ -42,7 +42,6 @@ public class UserController {
     }
 
     @POST
-    @Transactional
     public Response createUser(@Valid CreateUserRequest userData){
         UUID userId = create.execute(userData);
         return Response.status(Response.Status.CREATED)

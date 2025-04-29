@@ -5,6 +5,7 @@ import br.com.okto.modules.user.application.port.out.UserRepository;
 import io.quarkus.hibernate.orm.panache.PanacheRepositoryBase;
 import jakarta.enterprise.context.ApplicationScoped;
 import br.com.okto.shared.exception.DatabaseException;
+import jakarta.transaction.Transactional;
 
 import java.util.List;
 import java.util.UUID;
@@ -14,6 +15,7 @@ public class UserRepositoryImpl
         implements UserRepository, PanacheRepositoryBase<UserEntity, UUID> {
 
     @Override
+    @Transactional
     public void saveUser(UserEntity userToBeSaved) {
         try {
             persist(userToBeSaved);
@@ -23,6 +25,7 @@ public class UserRepositoryImpl
     }
 
     @Override
+    @Transactional
     public UserEntity findUserById(UUID userId) {
         try {
             return findById(userId);
@@ -32,6 +35,7 @@ public class UserRepositoryImpl
     }
 
     @Override
+    @Transactional
     public UserEntity findUserByEmail(String userEmail) {
         try {
             return find("email", userEmail).firstResult();
@@ -41,6 +45,7 @@ public class UserRepositoryImpl
     }
 
     @Override
+    @Transactional
     public List<UserEntity> findAllUsers() {
         try {
             return listAll();
@@ -50,15 +55,17 @@ public class UserRepositoryImpl
     }
 
     @Override
+    @Transactional
     public void updateUser(UserEntity userToBeUpdated) {
         try {
-            persist(userToBeUpdated);
+            getEntityManager().merge(userToBeUpdated);
         } catch (Exception error) {
             throw new DatabaseException(UserRepository.class.getSimpleName(), "updateUser", error);
         }
     }
 
     @Override
+    @Transactional
     public void deleteUser(UUID userId) {
         try {
             UserEntity entity = findById(userId);
