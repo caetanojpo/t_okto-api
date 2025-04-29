@@ -19,10 +19,9 @@ import java.util.UUID;
 public class CreateUserUseCaseImpl implements CreateUserUseCase {
 
     private final UserRepository repository;
-    private static final UserMapper mapper = UserMapper.INSTANCE;
 
     @Inject
-    public CreateUserUseCaseImpl(UserRepository repository) {
+    public CreateUserUseCaseImpl(UserRepository repository, UserMapper mapper) {
         this.repository = repository;
     }
 

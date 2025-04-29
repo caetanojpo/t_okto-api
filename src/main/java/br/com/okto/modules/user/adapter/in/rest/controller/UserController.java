@@ -1,9 +1,13 @@
 package br.com.okto.modules.user.adapter.in.rest.controller;
 
 import br.com.okto.modules.user.application.dto.user.CreateUserRequest;
+import br.com.okto.modules.user.application.dto.user.UpdateUserBasicInfoRequest;
+import br.com.okto.modules.user.application.dto.user.UpdateUserPasswordRequest;
+import br.com.okto.modules.user.application.dto.user.UpdateUserRoleRequest;
 import br.com.okto.modules.user.application.dto.user.UserResponse;
 import br.com.okto.modules.user.application.port.in.user.CreateUserUseCase;
 import br.com.okto.modules.user.application.port.in.user.FindUserUseCase;
+import br.com.okto.modules.user.application.port.in.user.UpdateUserUseCase;
 import br.com.okto.shared.dto.ApiResponse;
 import br.com.okto.shared.dto.PageInfo;
 import br.com.okto.shared.mapper.UserMapper;
@@ -12,6 +16,7 @@ import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
 import jakarta.ws.rs.GET;
+import jakarta.ws.rs.PATCH;
 import jakarta.ws.rs.POST;
 import jakarta.ws.rs.Path;
 import jakarta.ws.rs.PathParam;
@@ -27,13 +32,13 @@ import java.util.UUID;
 public class UserController {
     private final CreateUserUseCase create;
     private final FindUserUseCase find;
-
-    private static final UserMapper mapper = UserMapper.INSTANCE;
+    private final UpdateUserUseCase update;
 
     @Inject
-    public UserController(CreateUserUseCase create, FindUserUseCase find) {
+    public UserController(CreateUserUseCase create, FindUserUseCase find, UpdateUserUseCase update) {
         this.create = create;
         this.find = find;
+        this.update = update;
     }
 
     @POST
@@ -75,6 +80,36 @@ public class UserController {
         var user = find.executeByEmail(email);
         return Response.status(Response.Status.OK)
                 .entity(ApiResponse.success(user))
+                .build();
+    }
+
+    @PATCH
+    @Path("/update-password/{id}")
+    public Response updatePassword(@Valid UpdateUserPasswordRequest newUserData, @PathParam("id") UUID id){
+        update.executeChangePassword(newUserData, id);
+
+        return Response.status(Response.Status.NO_CONTENT)
+                .entity("User password updated!")
+                .build();
+    }
+
+    @PATCH
+    @Path("/update-info/{id}")
+    public Response updateInfo(@Valid UpdateUserBasicInfoRequest newUserData, @PathParam("id") UUID id){
+        update.executeChangeBasicInfo(newUserData, id);
+
+        return Response.status(Response.Status.NO_CONTENT)
+                .entity("User basic info updated!")
+                .build();
+    }
+
+    @PATCH
+    @Path("/update-role/{id}")
+    public Response updateRole(@Valid UpdateUserRoleRequest newUserData, @PathParam("id") UUID id){
+        update.executeChangeUserRole(newUserData, id);
+
+        return Response.status(Response.Status.NO_CONTENT)
+                .entity("User role updated!")
                 .build();
     }
 }

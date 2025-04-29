@@ -15,11 +15,12 @@ import java.util.UUID;
 @ApplicationScoped
 public class FindUserUseCaseImpl implements FindUserUseCase {
     private final UserRepository repository;
-    private static final UserMapper mapper = UserMapper.INSTANCE;
+    private final UserMapper mapper;
 
     @Inject
-    public FindUserUseCaseImpl(UserRepository repository) {
+    public FindUserUseCaseImpl(UserRepository repository, UserMapper mapper) {
         this.repository = repository;
+        this.mapper = mapper;
     }
 
     @Override
