@@ -1,4 +1,4 @@
-package br.com.okto.modules.user.adapter.in.rest.resource;
+package br.com.okto.modules.user.adapter.in.resource;
 
 import br.com.okto.modules.user.application.dto.user.CreateUserRequest;
 import br.com.okto.modules.user.application.dto.user.UpdateUserBasicInfoRequest;
