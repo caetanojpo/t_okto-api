@@ -1,6 +1,7 @@
 package br.com.okto.modules.user.domain.model;
 
 import br.com.okto.modules.account.domain.model.Account;
+import br.com.okto.modules.account.domain.model.UserAccount;
 import br.com.okto.modules.user.domain.enums.UserRole;
 
 import java.util.Date;
@@ -105,14 +106,14 @@ public class User {
 
     public void addAccount(Account account) {
         Objects.requireNonNull(account, "account must not be null");
-        if (accounts.add(account)) {
-            account.addUser(this);
+        if (account instanceof UserAccount && accounts.add(account)) {
+            ((UserAccount) account).addUser(this);
         }
     }
 
     public void removeAccount(Account account) {
-        if (accounts.remove(account)) {
-            account.removeUser(this);
+        if (account instanceof UserAccount && accounts.remove(account)) {
+            ((UserAccount) account).removeUser(this);
         }
     }
 
