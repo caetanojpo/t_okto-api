@@ -1,9 +1,12 @@
 package br.com.okto.modules.user.domain.model;
 
+import br.com.okto.modules.account.domain.model.Account;
 import br.com.okto.modules.user.domain.enums.UserRole;
 
 import java.util.Date;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 import java.util.UUID;
 
 public class User {
@@ -15,6 +18,8 @@ public class User {
     private UserRole role;
     private Date createdAt;
     private Date updatedAt;
+
+    private final Set<Account> accounts = new HashSet<>();
 
     public User() {
     }
@@ -92,6 +97,23 @@ public class User {
 
     public void setUpdatedAt(Date updatedAt) {
         this.updatedAt = updatedAt;
+    }
+
+    public Set<Account> getAccounts() {
+        return accounts;
+    }
+
+    public void addAccount(Account account) {
+        Objects.requireNonNull(account, "account must not be null");
+        if (accounts.add(account)) {
+            account.addUser(this);
+        }
+    }
+
+    public void removeAccount(Account account) {
+        if (accounts.remove(account)) {
+            account.removeUser(this);
+        }
     }
 
     @Override
