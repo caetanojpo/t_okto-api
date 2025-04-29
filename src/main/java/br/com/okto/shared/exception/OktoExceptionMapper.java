@@ -1,4 +1,4 @@
-package br.com.okto.modules.user.adapter.in.rest.handler;
+package br.com.okto.shared.exception;
 
 import br.com.okto.shared.dto.ApiResponse;
 import br.com.okto.shared.dto.ErrorInfo;
