@@ -9,13 +9,12 @@ import br.com.okto.shared.exception.ConflictException;
 import br.com.okto.shared.mapper.UserMapper;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
-import lombok.extern.slf4j.Slf4j;
+import jakarta.inject.Singleton;
 
 import java.util.Date;
 import java.util.UUID;
 
-@ApplicationScoped
-@Slf4j
+@Singleton
 public class CreateUserUseCaseImpl implements CreateUserUseCase {
 
     private final UserRepository repository;

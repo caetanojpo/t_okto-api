@@ -6,6 +6,7 @@ import br.com.okto.modules.user.application.dto.user.UpdateUserPasswordRequest;
 import br.com.okto.modules.user.application.dto.user.UpdateUserRoleRequest;
 import br.com.okto.modules.user.application.dto.user.UserResponse;
 import br.com.okto.modules.user.application.port.in.user.CreateUserUseCase;
+import br.com.okto.modules.user.application.port.in.user.DeleteUserUseCase;
 import br.com.okto.modules.user.application.port.in.user.FindUserUseCase;
 import br.com.okto.modules.user.application.port.in.user.UpdateUserUseCase;
 import br.com.okto.shared.dto.ApiResponse;
@@ -15,6 +16,7 @@ import jakarta.inject.Inject;
 import jakarta.transaction.Transactional;
 import jakarta.validation.Valid;
 import jakarta.ws.rs.Consumes;
+import jakarta.ws.rs.DELETE;
 import jakarta.ws.rs.GET;
 import jakarta.ws.rs.PATCH;
 import jakarta.ws.rs.POST;
@@ -33,12 +35,14 @@ public class UserController {
     private final CreateUserUseCase create;
     private final FindUserUseCase find;
     private final UpdateUserUseCase update;
+    private final DeleteUserUseCase delete;
 
     @Inject
-    public UserController(CreateUserUseCase create, FindUserUseCase find, UpdateUserUseCase update) {
+    public UserController(CreateUserUseCase create, FindUserUseCase find, UpdateUserUseCase update, DeleteUserUseCase delete) {
         this.create = create;
         this.find = find;
         this.update = update;
+        this.delete = delete;
     }
 
     @POST
@@ -88,7 +92,6 @@ public class UserController {
         update.executeChangePassword(newUserData, id);
 
         return Response.status(Response.Status.NO_CONTENT)
-                .entity("User password updated!")
                 .build();
     }
 
@@ -98,7 +101,6 @@ public class UserController {
         update.executeChangeBasicInfo(newUserData, id);
 
         return Response.status(Response.Status.NO_CONTENT)
-                .entity("User basic info updated!")
                 .build();
     }
 
@@ -108,7 +110,15 @@ public class UserController {
         update.executeChangeUserRole(newUserData, id);
 
         return Response.status(Response.Status.NO_CONTENT)
-                .entity("User role updated!")
+                .build();
+    }
+
+    @DELETE
+    @Path("/{id}")
+    public Response deleteUser(@PathParam("id") UUID id){
+        delete.execute(id);
+
+        return Response.status(Response.Status.NO_CONTENT)
                 .build();
     }
 }

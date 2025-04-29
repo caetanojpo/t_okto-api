@@ -10,11 +10,12 @@ import br.com.okto.modules.user.domain.model.User;
 import br.com.okto.shared.exception.EntityNotFoundException;
 import br.com.okto.shared.mapper.UserMapper;
 import jakarta.enterprise.context.ApplicationScoped;
+import jakarta.inject.Singleton;
 
 import java.util.Date;
 import java.util.UUID;
 
-@ApplicationScoped
+@Singleton
 public class UpdateUserUseCaseImpl implements UpdateUserUseCase {
     private final UserRepository repository;
 

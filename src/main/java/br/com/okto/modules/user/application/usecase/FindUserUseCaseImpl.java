@@ -8,11 +8,12 @@ import br.com.okto.shared.exception.EntityNotFoundException;
 import br.com.okto.shared.mapper.UserMapper;
 import jakarta.enterprise.context.ApplicationScoped;
 import jakarta.inject.Inject;
+import jakarta.inject.Singleton;
 
 import java.util.List;
 import java.util.UUID;
 
-@ApplicationScoped
+@Singleton
 public class FindUserUseCaseImpl implements FindUserUseCase {
     private final UserRepository repository;
     private final UserMapper mapper;
