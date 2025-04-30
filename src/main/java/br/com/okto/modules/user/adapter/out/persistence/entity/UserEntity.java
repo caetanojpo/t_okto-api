@@ -1,5 +1,6 @@
 package br.com.okto.modules.user.adapter.out.persistence.entity;
 
+import br.com.okto.modules.account.adapter.out.persistence.entity.account.UserAccountEntity;
 import br.com.okto.modules.account.domain.model.account.Account;
 import br.com.okto.modules.user.domain.enums.UserRole;
 import jakarta.persistence.*;
@@ -12,15 +13,15 @@ import java.util.UUID;
 
 @Entity
 @Table(name = "users")
-@Getter
-@Setter
-@Builder
+@Data
 @NoArgsConstructor
 @AllArgsConstructor
+@Builder
 public class UserEntity {
 
     @Id
     @GeneratedValue(strategy = GenerationType.UUID)
+    @EqualsAndHashCode.Include
     private UUID id;
 
     @Column(nullable = false)
@@ -47,11 +48,7 @@ public class UserEntity {
     @Column(name = "updated_at")
     private Date updatedAt;
 
-    @ManyToMany
-    @JoinTable(
-            name = "user_accounts",
-            joinColumns = @JoinColumn(name = "user_id"),
-            inverseJoinColumns = @JoinColumn(name = "account_id")
-    )
-    private Set<Account> accounts = new HashSet<>();
+    @ManyToMany(mappedBy = "users", fetch = FetchType.LAZY)
+    @Builder.Default
+    private Set<UserAccountEntity> accounts = new HashSet<>();
 }
