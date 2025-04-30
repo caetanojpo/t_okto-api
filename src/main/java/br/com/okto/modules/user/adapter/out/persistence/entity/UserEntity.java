@@ -1,6 +1,6 @@
 package br.com.okto.modules.user.adapter.out.persistence.entity;
 
-import br.com.okto.modules.account.domain.model.Account;
+import br.com.okto.modules.account.domain.model.account.Account;
 import br.com.okto.modules.user.domain.enums.UserRole;
 import jakarta.persistence.*;
 import lombok.*;

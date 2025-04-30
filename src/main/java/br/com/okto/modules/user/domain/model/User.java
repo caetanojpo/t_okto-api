@@ -1,7 +1,7 @@
 package br.com.okto.modules.user.domain.model;
 
-import br.com.okto.modules.account.domain.model.Account;
-import br.com.okto.modules.account.domain.model.UserAccount;
+import br.com.okto.modules.account.domain.model.account.Account;
+import br.com.okto.modules.account.domain.model.account.UserAccount;
 import br.com.okto.modules.user.domain.enums.UserRole;
 
 import java.util.Date;

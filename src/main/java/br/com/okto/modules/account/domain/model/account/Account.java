@@ -1,4 +1,4 @@
-package br.com.okto.modules.account.domain.model;
+package br.com.okto.modules.account.domain.model.account;
 
 import br.com.okto.shared.exception.NegativeValueException;
 

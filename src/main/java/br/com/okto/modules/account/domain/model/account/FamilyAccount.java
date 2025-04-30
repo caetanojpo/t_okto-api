@@ -1,4 +1,4 @@
-package br.com.okto.modules.account.domain.model;
+package br.com.okto.modules.account.domain.model.account;
 
 import java.math.BigDecimal;
 import java.util.UUID;
